@@ -1,3 +1,14 @@
+.main-view {
+  background: #467888;
+}
+
+.mainNavbar {
+  background: #020b16;
+}
+
+body {
+  font-family: "Teko", sans-serif !important;
+}
 .my-flix {
   color: steelblue;
 }

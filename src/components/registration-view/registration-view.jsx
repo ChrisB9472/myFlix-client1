@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from 'axios'
 import Button from 'react-bootstrap/Button';
@@ -18,7 +18,7 @@ export function RegistrationView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, name, password, email, birthday);
-    axios.post('https://myflix-by-jop.herokuapp.com/user', {
+    axios.post('https://evening-caverns-13073.herokuapp.com/users', {
       Username: username,
       Name: name,
       Password: password,

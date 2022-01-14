@@ -13,14 +13,17 @@ import "./genre-view.scss";
     <div>
      <div>
           <span className="label">Name: </span>
-          <span className="value">{props.Genre.genre.name}</span> 
+          <span className="value">{}</span> 
              
         </div>
         <div >
           <span >Description: </span>
-          <span >{props.Genre.genre.description}</span>     
+          <span >{}</span>     
         </div>  
-        
+        <div >
+          <span >Year of Birth: </span>
+          <span >{}</span>      
+        </div>
         <Link to={`/`}>
                 <Button className='returnButton' variant='dark'>Return to Movie List</Button>
               </Link>

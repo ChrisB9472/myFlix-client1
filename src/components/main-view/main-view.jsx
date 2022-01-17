@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import "./main-view.scss";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -15,17 +16,31 @@ import { RegistrationView } from '../registration-view/registration-view'
 import { Userview } from '../user-view/user-view';
 
 import { DirectorView } from '../director-view/director-view';
-export class MainView extends React.Component {
 
-    constructor() {
-        super();
-    // Initial state is set to null
-        this.state = {
-          movies: [],
-          selectedMovie: null,
-          user: null
-        };
-      }
+// #0
+import { setMovies } from '../../actions/actions';
+
+// we haven't written this one yet
+import MoviesList from '../movies-list/movies-list';
+/* 
+  #1 The rest of components import statements but without the MovieCard's 
+  because it will be imported and used in the MoviesList component rather
+  than in here. 
+*/
+
+
+// #2 export keyword removed from here
+class MainView extends React.Component {
+
+  constructor() {
+    super();
+
+    // #3 movies state removed from here
+    this.state = {
+      user: null
+    };
+  }
+
 
       componentDidMount() {
         let accessToken = localStorage.getItem('token');
@@ -63,10 +78,8 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      // Assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+     // #4
+     this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -104,7 +117,10 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+
+    let { movies } = this.props;
+    let { user } = this.state;
+    
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
     are *passed as a prop to the LoginView*/
@@ -127,13 +143,14 @@ export class MainView extends React.Component {
         
               <Router>
                 <Row className="main-view justify-content-md-center">
-                  <Route exact path="/" render={() => {
-                    return movies.map(m => (
-                      <Col md={3} key={m._id}>
-                        <MovieCard movie={m} />
-                      </Col>
-                    ))
-                  }} />
+                <Route exact path="/" render={() => {
+            if (!user) return <Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            </Col>
+            if (movies.length === 0) return <div className="main-view" />;
+            // #6
+            return <MoviesList movies={movies}/>;
+          }} />
         
                   {/* Register view */}
             <Route exact path="/register" render={() => {
@@ -183,6 +200,11 @@ export class MainView extends React.Component {
             );
           }
         }
-        
-        export default MainView;
+        // #7
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+// #8
+export default connect(mapStateToProps, { setMovies } )(MainView);
         

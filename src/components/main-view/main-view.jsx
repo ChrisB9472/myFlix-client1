@@ -2,14 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setMovies, setUser } from '../../actions/actions';
-import './main-view.scss';
+
 import { LoginView } from '../login-view/login-view';
 // import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { NavBarView } from '../navbar-view/navbar';
 import UserView from '../profile-view/profile-view'
 import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";

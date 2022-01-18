@@ -18,7 +18,7 @@ import { Userview } from '../user-view/user-view';
 import { DirectorView } from '../director-view/director-view';
 
 // #0
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 // we haven't written this one yet
 import MoviesList from '../movies-list/movies-list';

@@ -57686,7 +57686,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var user = this.state.user;
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
       are *passed as a prop to the LoginView*/
-      // Before the movies have been loaded
+
+      if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
+        onLoggedIn: function onLoggedIn(user) {
+          return _this4.onLoggedIn(user);
+        }
+      }); // Before the movies have been loaded
 
       if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"

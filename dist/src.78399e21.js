@@ -34842,13 +34842,19 @@ var _batch = require("./utils/batch");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SET_MOVIES = exports.SET_FILTER = void 0;
+exports.UPDATE_USER = exports.SET_USER = exports.SET_MOVIES = exports.SET_FILTER = void 0;
 exports.setFilter = setFilter;
 exports.setMovies = setMovies;
+exports.setUser = setUser;
+exports.updateUser = updateUser;
 var SET_MOVIES = 'SET_MOVIES';
 exports.SET_MOVIES = SET_MOVIES;
 var SET_FILTER = 'SET_FILTER';
 exports.SET_FILTER = SET_FILTER;
+var SET_USER = 'SET_USER';
+exports.SET_USER = SET_USER;
+var UPDATE_USER = 'UPDATE_USER';
+exports.UPDATE_USER = UPDATE_USER;
 
 function setMovies(value) {
   return {
@@ -34860,6 +34866,20 @@ function setMovies(value) {
 function setFilter(value) {
   return {
     type: SET_FILTER,
+    value: value
+  };
+}
+
+function setUser(value) {
+  return {
+    type: SET_USER,
+    value: value
+  };
+}
+
+function updateUser(value) {
+  return {
+    type: UPDATE_USER,
     value: value
   };
 }

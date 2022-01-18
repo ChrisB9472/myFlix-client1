@@ -56663,13 +56663,12 @@ function LoginView(props) {
     variant: "primary",
     type: "submit",
     onClick: handleSubmit
-  }, "Submit"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    style: {
-      marginTop: "10px"
-    },
+  }, "Submit"), /*#__PURE__*/_react.default.createElement("a", {
+    href: "/register"
+  }, /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "primary",
     type: "button"
-  }, " ", "Create Account"));
+  }, " ", "Create Account")));
 }
 },{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../node_modules/axios/index.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";

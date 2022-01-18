@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 
-import "./director-view.scss";
+
 
  export function DirectorView (props)  {
   const { director } = props; 

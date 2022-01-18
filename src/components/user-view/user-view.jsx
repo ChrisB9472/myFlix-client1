@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Button, Card, Col, Form, Row, Container } from 'react-bootstrap';
 import { MovieCard } from '../movie-card/movie-card';
-import './user-view.scss';
+
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import "./main-view.scss";
+
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 

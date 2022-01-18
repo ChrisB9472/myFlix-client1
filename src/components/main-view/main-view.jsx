@@ -127,7 +127,7 @@ class MainView extends React.Component {
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
     are *passed as a prop to the LoginView*/
-  
+    if(!user) return  <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     // Before the movies have been loaded
     if (movies.length === 0) return <div className="main-view" />;
@@ -145,25 +145,22 @@ class MainView extends React.Component {
                 </Navbar>
         
               <Router>
-
- {/* Register view */}
- <Route exact path="/register" render={() => {
-              
-              return <Col>
-                <RegistrationView
-                />
-              </Col>
-            }} />
-
                 <Row className="main-view justify-content-md-center">
                 <Route exact path="/" render={() => {
-           
-            if (movies.length === 0) return <div className="main-view" />;
-            // #6
-            return <MoviesList movies={movies}/>;
-          }} />
+            <Col>
+            <RegistrationView
+            />
+          </Col>
+        }} />
         
-                 
+                  {/* Register view */}
+            <Route exact path="/register" render={() => {
+              
+                return <Col>
+                  <RegistrationView
+                  />
+                </Col>
+              }} />
         
         <Route path="/directors/:name" render={({ match }) => {
           if (movies.length === 0) return <div className="main-view" />;

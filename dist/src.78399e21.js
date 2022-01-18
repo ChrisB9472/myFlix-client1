@@ -57585,11 +57585,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MainView);
 
-    _this = _super.call(this); // #3 movies state removed from here
-
+    _this = _super.call(this);
     _this.state = {
-      user: null
+      // movies: [],
+      selectedMovie: null,
+      // user: null,
+      favorites: []
     };
+    _this.getUser = _this.getUser.bind(_assertThisInitialized(_this));
     return _this;
   }
 

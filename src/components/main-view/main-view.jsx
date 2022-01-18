@@ -34,12 +34,15 @@ class MainView extends React.Component {
 
   constructor() {
     super();
-
-    // #3 movies state removed from here
     this.state = {
-      user: null
-    };
-  }
+        // movies: [],
+        selectedMovie: null,
+        // user: null,
+        favorites: []
+    }
+    this.getUser = this.getUser.bind(this)
+
+}
 
 
       componentDidMount() {

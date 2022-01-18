@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { Link } from "react-router-dom";
 
 
 
@@ -40,9 +39,14 @@ export function LoginView(props) {
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
-      <Link to={`/register`}>
-                                <a href="/register">Not a member?</a>
-                            </Link>
+      <a href="https://chris-movies.netlify.app/register"><Button
+                         
+                          variant="primary"
+                          type="button"
+                        >
+                          {" "}
+                          Create Account
+                        </Button></a>
                        
                     
     </Form>

@@ -145,6 +145,16 @@ class MainView extends React.Component {
                 </Navbar>
         
               <Router>
+
+ {/* Register view */}
+ <Route exact path="/register" render={() => {
+              
+              return <Col>
+                <RegistrationView
+                />
+              </Col>
+            }} />
+
                 <Row className="main-view justify-content-md-center">
                 <Route exact path="/" render={() => {
             if (!user) return <Col>
@@ -155,14 +165,7 @@ class MainView extends React.Component {
             return <MoviesList movies={movies}/>;
           }} />
         
-                  {/* Register view */}
-            <Route exact path="/register" render={() => {
-              
-                return <Col>
-                  <RegistrationView
-                  />
-                </Col>
-              }} />
+                 
         
         <Route path="/directors/:name" render={({ match }) => {
           if (movies.length === 0) return <div className="main-view" />;

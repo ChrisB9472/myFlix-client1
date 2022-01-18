@@ -57612,7 +57612,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setMovies: _actions.setMovies,
-  setUser: _actions.setUser
+  setUser: setUser
 })(MainView);
 
 exports.default = _default;

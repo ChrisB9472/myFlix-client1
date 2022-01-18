@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setMovies, setUser } from '../../actions/actions';
+import { setMovies } from '../../actions/actions';
 
 import { LoginView } from '../login-view/login-view';
 // import { MovieCard } from '../movie-card/movie-card';

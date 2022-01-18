@@ -39,14 +39,14 @@ export function LoginView(props) {
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
-      <Button
-                          style={{ marginTop: "10px" }}
+      <a href="/register"><Button
+                         
                           variant="primary"
                           type="button"
                         >
                           {" "}
                           Create Account
-                        </Button>
+                        </Button></a>
                        
                     
     </Form>

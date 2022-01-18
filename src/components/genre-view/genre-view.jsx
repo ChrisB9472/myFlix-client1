@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import "./genre-view.scss";
+
 
  export function GenreView (props)  {
   const { genre } = props; 

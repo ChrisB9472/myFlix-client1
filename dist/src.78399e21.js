@@ -57807,7 +57807,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this4 = this;
 
       var movies = this.props.movies;
-      var user = this.state.user;
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
       are *passed as a prop to the LoginView*/
 

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {  BrowserRouter as Router, Route } from 'react-router-dom';
 
-
+import './registration-view.scss';
 
 
 export function RegistrationView(props) {

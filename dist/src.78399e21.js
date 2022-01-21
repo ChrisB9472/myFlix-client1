@@ -57022,7 +57022,79 @@ function GenreView(props) {
 }
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","prop-types":"../node_modules/prop-types/index.js"}],"components/actor-view/actor-view.jsx":[function(require,module,exports) {
 
-},{}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
+},{}],"../../../../.nvm/versions/node/v16.13.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../.nvm/versions/node/v16.13.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../.nvm/versions/node/v16.13.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../.nvm/versions/node/v16.13.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57041,6 +57113,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _reactRouterDom = require("react-router-dom");
+
+require("./registration-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57063,7 +57137,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function RegistrationView(props) {
   var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
+      Username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(""),
@@ -57073,29 +57147,28 @@ function RegistrationView(props) {
 
   var _useState5 = (0, _react.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      password = _useState6[0],
+      Password = _useState6[0],
       setPassword = _useState6[1];
 
   var _useState7 = (0, _react.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      email = _useState8[0],
+      Email = _useState8[0],
       setEmail = _useState8[1];
 
   var _useState9 = (0, _react.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
-      birthday = _useState10[0],
+      Birthday = _useState10[0],
       setBirthday = _useState10[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, name, password, email, birthday);
+    console.log(Username, Password, Email, Birthday);
 
     _axios.default.post('https://evening-caverns-13073.herokuapp.com/users', {
-      Username: username,
-      Name: name,
-      Password: password,
-      Email: email,
-      Birthday: birthday
+      Username: Username,
+      Password: Password,
+      Email: Email,
+      Birthday: Birthday
     }).then(function (response) {
       var data = response.data;
       console.log(data);
@@ -57113,7 +57186,7 @@ function RegistrationView(props) {
     controlId: "registration-Username"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Username:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     className: "username",
-    value: username,
+    value: Username,
     type: "text",
     placeholder: "Create Username",
     onChange: function onChange(e) {
@@ -57123,27 +57196,17 @@ function RegistrationView(props) {
     controlId: "registration-Password"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Password:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     className: "password",
-    value: password,
+    value: Password,
     type: "text",
     placeholder: "Create Password",
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
-    controlId: "registration-Name"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Name:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
-    className: "name",
-    value: name,
-    type: "text",
-    placeholder: "Enter Name",
-    onChange: function onChange(e) {
-      return setName(e.target.value);
-    }
-  })), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
     controlId: "registration-Email"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Email:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     className: "email",
-    value: email,
+    value: Email,
     type: "email",
     placeholder: "Enter Email",
     onChange: function onChange(e) {
@@ -57153,7 +57216,7 @@ function RegistrationView(props) {
     controlId: "registration-Birthday"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Birthday:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     className: "birthday",
-    value: birthday,
+    value: Birthday,
     type: "date",
     placeholder: "Enter Birthday",
     onChange: function onChange(e) {
@@ -57177,15 +57240,14 @@ function RegistrationView(props) {
 
 RegistrationView.propTypes = {
   register: _propTypes.default.shape({
-    username: _propTypes.default.string.isRequired,
+    Username: _propTypes.default.string.isRequired,
     name: _propTypes.default.string.isRequired,
-    password: _propTypes.default.string.isRequired,
-    email: _propTypes.default.string.isRequired,
-    birthday: _propTypes.default.string.isRequired
-  }),
-  onRegistration: _propTypes.default.func.isRequired
+    Password: _propTypes.default.string.isRequired,
+    Email: _propTypes.default.string.isRequired,
+    Birthday: _propTypes.default.string.isRequired
+  })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/user-view/user-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./registration-view.scss":"components/registration-view/registration-view.scss"}],"components/user-view/user-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57807,18 +57869,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this4 = this;
 
       var movies = this.props.movies;
-      /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
-      are *passed as a prop to the LoginView*/
-
-      if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-        onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
-        }
-      }); // Before the movies have been loaded
-
-      if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
-        className: "main-view"
-      });
+      var user = this.state.user;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
@@ -57845,19 +57896,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               return _this4.onLoggedIn(user);
             }
           }));
-          if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
-            className: "main-view"
-          }); // #6
-
-          return /*#__PURE__*/_react.default.createElement(_moviesList.default, {
-            movies: movies
+          return movies.map(function (m) {
+            return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+              md: 3,
+              key: m._id
+            }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
+              movie: m
+            }));
           });
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
         path: "/register",
         render: function render() {
-          return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null);
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null));
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         path: "/directors/:name",

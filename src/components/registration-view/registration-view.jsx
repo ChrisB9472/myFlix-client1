@@ -5,25 +5,24 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {  BrowserRouter as Router, Route } from 'react-router-dom';
 
-
+import './registration-view.scss';
 
 
 export function RegistrationView(props) {
-  const [username, setUsername] = useState("");
+  const [Username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Birthday, setBirthday] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, name, password, email, birthday);
+    console.log(Username, Password, Email, Birthday);
     axios.post('https://evening-caverns-13073.herokuapp.com/users', {
-      Username: username,
-      Name: name,
-      Password: password,
-      Email: email,
-      Birthday: birthday
+      Username: Username,
+      Password: Password,
+      Email: Email,
+      Birthday: Birthday
     })
     .then(response => {
       const data = response.data;
@@ -43,23 +42,20 @@ export function RegistrationView(props) {
     <h1 className="form-title">Register</h1>
       <Form.Group controlId="registration-Username">
        <Form.Label>Username:</Form.Label>
-       <Form.Control className="username" value={username} type="text" placeholder="Create Username" onChange={e => setUsername(e.target.value)}></Form.Control>
+       <Form.Control className="username" value={Username} type="text" placeholder="Create Username" onChange={e => setUsername(e.target.value)}></Form.Control>
       </Form.Group>
       <Form.Group controlId="registration-Password">
        <Form.Label>Password:</Form.Label>
-       <Form.Control className="password" value={password} type="text" placeholder="Create Password" onChange={e => setPassword(e.target.value)}></Form.Control>
+       <Form.Control className="password" value={Password} type="text" placeholder="Create Password" onChange={e => setPassword(e.target.value)}></Form.Control>
       </Form.Group>
-      <Form.Group controlId="registration-Name">
-       <Form.Label>Name:</Form.Label>
-       <Form.Control className="name" value={name} type="text" placeholder="Enter Name" onChange={e => setName(e.target.value)}></Form.Control>
-      </Form.Group>
+      
       <Form.Group controlId="registration-Email">
        <Form.Label>Email:</Form.Label>
-       <Form.Control className="email" value={email} type="email" placeholder="Enter Email" onChange={e => setEmail(e.target.value)}></Form.Control>
+       <Form.Control className="email" value={Email} type="email" placeholder="Enter Email" onChange={e => setEmail(e.target.value)}></Form.Control>
       </Form.Group>
       <Form.Group controlId="registration-Birthday">
        <Form.Label>Birthday:</Form.Label>
-       <Form.Control className="birthday" value={birthday} type="date" placeholder="Enter Birthday" onChange={e => setBirthday(e.target.value)}></Form.Control>
+       <Form.Control className="birthday" value={Birthday} type="date" placeholder="Enter Birthday" onChange={e => setBirthday(e.target.value)}></Form.Control>
       </Form.Group>
       
       <div className="buttons-registration">
@@ -74,11 +70,11 @@ export function RegistrationView(props) {
 
 RegistrationView.propTypes = {
   register: PropTypes.shape({
-    username: PropTypes.string.isRequired,
+    Username: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired,
-  }),
-  onRegistration: PropTypes.func.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string.isRequired,
+  })
+  
 };

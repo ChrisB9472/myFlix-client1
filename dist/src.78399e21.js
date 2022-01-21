@@ -56615,11 +56615,13 @@ exports.LoginView = LoginView;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+var _reactBootstrap = require("react-bootstrap");
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56650,42 +56652,139 @@ function LoginView(props) {
       password = _useState4[0],
       setPassword = _useState4[1];
 
-  var handleSubmit = function handleSubmit(e) {
-    e.preventDefault();
-    /* Send a request to the server for authentication */
+  var _useState5 = (0, _react.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      usernameErr = _useState6[0],
+      setUsernameErr = _useState6[1];
 
-    _axios.default.post('https://evening-caverns-13073.herokuapp.com/login', {
-      Username: username,
-      Password: password
-    }).then(function (response) {
-      var data = response.data;
-      props.onLoggedIn(data);
-    }).catch(function (e) {
-      console.log('no such user');
-    });
+  var _useState7 = (0, _react.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      passwordErr = _useState8[0],
+      setPasswordErr = _useState8[1];
+
+  var validate = function validate() {
+    var isReq = true;
+
+    if (!username) {
+      setUsernameErr('Username Required');
+      isReq = false;
+    } else if (username.length < 2) {
+      setUsernameErr('Username must be atleast 2 characters');
+      isReq = false;
+    }
+
+    if (!password) {
+      setPasswordErr('Password Required');
+      isReq = false;
+    } else if (password.length < 6) {
+      setPasswordErr('Password must be atleast 6 characters long');
+      isReq = false;
+    }
+
+    return isReq;
   };
 
-  return /*#__PURE__*/_react.default.createElement(_Form.default, null, /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    var isReq = validate();
+
+    if (isReq) {
+      /* Send a request to the server for authentication */
+      _axios.default.post('https://evening-caverns-13073.herokuapp.com/login', {
+        Username: username,
+        Password: password
+      }).then(function (response) {
+        var data = response.data;
+        console.log(data);
+        var userData = data.user;
+        console.log(userData);
+        props.onLoggedIn(data);
+      }).catch(function (e) {
+        console.log('no such user');
+      });
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "login-view-div"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
+    bg: "navColor",
+    variant: "dark",
+    expand: "lg"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
+    href: "#home"
+  }, "MyFlix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
+    "aria-controls": "basic-navbar-nav"
+  }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Collapse, {
+    id: "basic-navbar-nav"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Nav, {
+    className: "me-auto"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Nav.Link, {
+    href: "#login"
+  }, "Login"))))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true,
+    className: "loginContainer"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+    className: "loginCard",
+    style: {
+      width: '28rem'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, {
+    className: "text-center"
+  }, "Welcome to MyFlix."), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Subtitle, {
+    className: "mb-2 text-muted text-center"
+  }, "Please Login"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formUsername"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Username:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Username:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
+    value: username,
+    placeholder: "Enter Username",
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
-  })), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
+  }), usernameErr && /*#__PURE__*/_react.default.createElement("p", null, usernameErr)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formPassword"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Password:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "mb-3",
     type: "password",
+    value: password,
+    placeholder: "Enter Password",
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  })), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    variant: "primary",
+  }), passwordErr && /*#__PURE__*/_react.default.createElement("p", null, passwordErr)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    className: "loginButton",
+    variant: "secondary",
+    size: "lg",
     type: "submit",
     onClick: handleSubmit
-  }, "Submit"));
+  }, "Login"), /*#__PURE__*/_react.default.createElement("a", {
+    href: "/register"
+  }, "Not a member?")))))) // <form>
+  //     <label>
+  //         Username:
+  //         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+  //     </label>
+  //     <label>
+  //         Password:
+  //         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+  //     </label>
+  //     <button type="submit" onClick={handleSubmit}>Submit</button>
+  //     <a href="url">Not a member?</a>
+  // </form>
+  ;
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../node_modules/axios/index.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+
+LoginView.propTypes = {
+  user: _propTypes.default.shape({
+    username: _propTypes.default.string.isRequired,
+    password: _propTypes.default.string.isRequired
+  }),
+  onLoggedIn: _propTypes.default.func.isRequired
+};
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

@@ -56615,13 +56615,11 @@ exports.LoginView = LoginView;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
-var _reactBootstrap = require("react-bootstrap");
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _axios = _interopRequireDefault(require("axios"));
-
-var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56652,139 +56650,42 @@ function LoginView(props) {
       password = _useState4[0],
       setPassword = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(''),
-      _useState6 = _slicedToArray(_useState5, 2),
-      usernameErr = _useState6[0],
-      setUsernameErr = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(''),
-      _useState8 = _slicedToArray(_useState7, 2),
-      passwordErr = _useState8[0],
-      setPasswordErr = _useState8[1];
-
-  var validate = function validate() {
-    var isReq = true;
-
-    if (!username) {
-      setUsernameErr('Username Required');
-      isReq = false;
-    } else if (username.length < 2) {
-      setUsernameErr('Username must be atleast 2 characters');
-      isReq = false;
-    }
-
-    if (!password) {
-      setPasswordErr('Password Required');
-      isReq = false;
-    } else if (password.length < 6) {
-      setPasswordErr('Password must be atleast 6 characters long');
-      isReq = false;
-    }
-
-    return isReq;
-  };
-
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    var isReq = validate();
+    /* Send a request to the server for authentication */
 
-    if (isReq) {
-      /* Send a request to the server for authentication */
-      _axios.default.post('https://evening-caverns-13073.herokuapp.com/login', {
-        Username: username,
-        Password: password
-      }).then(function (response) {
-        var data = response.data;
-        console.log(data);
-        var userData = data.user;
-        console.log(userData);
-        props.onLoggedIn(data);
-      }).catch(function (e) {
-        console.log('no such user');
-      });
-    }
+    _axios.default.post('https://evening-caverns-13073.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    }).then(function (response) {
+      var data = response.data;
+      props.onLoggedIn(data);
+    }).catch(function (e) {
+      console.log('no such user');
+    });
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "login-view-div"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
-    bg: "navColor",
-    variant: "dark",
-    expand: "lg"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
-    fluid: true
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
-    href: "#home"
-  }, "MyFlix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
-    "aria-controls": "basic-navbar-nav"
-  }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Collapse, {
-    id: "basic-navbar-nav"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Nav, {
-    className: "me-auto"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Nav.Link, {
-    href: "#login"
-  }, "Login"))))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
-    fluid: true,
-    className: "loginContainer"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-    className: "loginCard",
-    style: {
-      width: '28rem'
-    }
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, {
-    className: "text-center"
-  }, "Welcome to MyFlix."), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Subtitle, {
-    className: "mb-2 text-muted text-center"
-  }, "Please Login"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+  return /*#__PURE__*/_react.default.createElement(_Form.default, null, /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
     controlId: "formUsername"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Username:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Username:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     type: "text",
-    value: username,
-    placeholder: "Enter Username",
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
-  }), usernameErr && /*#__PURE__*/_react.default.createElement("p", null, usernameErr)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+  })), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
     controlId: "formPassword"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "mb-3",
+  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Password:"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     type: "password",
-    value: password,
-    placeholder: "Enter Password",
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }), passwordErr && /*#__PURE__*/_react.default.createElement("p", null, passwordErr)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    className: "loginButton",
-    variant: "secondary",
-    size: "lg",
+  })), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    variant: "primary",
     type: "submit",
     onClick: handleSubmit
-  }, "Login"), /*#__PURE__*/_react.default.createElement("a", {
-    href: "/register"
-  }, "Not a member?")))))) // <form>
-  //     <label>
-  //         Username:
-  //         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-  //     </label>
-  //     <label>
-  //         Password:
-  //         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-  //     </label>
-  //     <button type="submit" onClick={handleSubmit}>Submit</button>
-  //     <a href="url">Not a member?</a>
-  // </form>
-  ;
+  }, "Submit"));
 }
-
-LoginView.propTypes = {
-  user: _propTypes.default.shape({
-    username: _propTypes.default.string.isRequired,
-    password: _propTypes.default.string.isRequired
-  }),
-  onLoggedIn: _propTypes.default.func.isRequired
-};
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../node_modules/axios/index.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57800,47 +57701,35 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this4 = this;
 
       var movies = this.props.movies;
-      var _this$state = this.state,
-          username = _this$state.username,
-          password = _this$state.password,
-          email = _this$state.email,
-          birthday = _this$state.birthday,
-          favorites = _this$state.favorites,
-          user = _this$state.user,
-          register = _this$state.register; //  if (!user) return <Row>
-      //     <Col>
-      //         <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-      //     </Col>
-      // </Row>
-      // if (movies.length === 0) return <div className="main-view" />;
+      var user = this.state.user;
+      /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
+      are *passed as a prop to the LoginView*/
 
-      console.log('!', movies[0]);
-      return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/",
-        render: function render() {
-          console.log('login');
-          if (user) return /*#__PURE__*/_react.default.createElement(NavBarView, {
-            user: user
-          });
-          if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
+      if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
+        onLoggedIn: function onLoggedIn(user) {
+          return _this4.onLoggedIn(user);
         }
-      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/register",
-        render: function render() {
-          if (user) return /*#__PURE__*/_react.default.createElement(Redirect, {
-            to: "/"
-          });
-          return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null);
+      }); // Before the movies have been loaded
+
+      if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
+        className: "main-view"
+      });
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "main-view"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
+        expand: "lg",
+        bg: "#162b48",
+        variant: "dark",
+        className: "mainNavbar"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
+        href: "#myflix"
+      }, "My Flix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Nav, {
+        className: "me-auto"
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        onClick: function onClick() {
+          _this4.onLoggedOut();
         }
-      }), /*#__PURE__*/_react.default.createElement("div", {
-        className: "main-view "
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+      }, "Logout")))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
         className: "main-view justify-content-md-center"
       }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -57853,26 +57742,78 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           }));
           if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
             className: "main-view"
-          });
-          console.log(_this4.state);
+          }); // #6
+
           return /*#__PURE__*/_react.default.createElement(_moviesList.default, {
             movies: movies
           });
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        path: "/movies/:movieId",
+        exact: true,
+        path: "/register",
+        render: function render() {
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null));
+        }
+      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/directors/:name",
         render: function render(_ref) {
-          var match = _ref.match,
-              history = _ref.history;
+          var match = _ref.match;
           if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
             className: "main-view"
           });
-          console.log(movies);
           return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-            lg: 9
-          }, /*#__PURE__*/_react.default.createElement(NavBarView, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
+            md: 8
+          }, /*#__PURE__*/_react.default.createElement(_directorView.DirectorView, {
+            Director: movies.find(function (m) {
+              return m.director.name === match.params.name;
+            })
+          }));
+        }
+      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/genres/:name",
+        render: function render(_ref2) {
+          var match = _ref2.match;
+          if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
+            className: "main-view"
+          });
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+            md: 8
+          }, /*#__PURE__*/_react.default.createElement(_genreView.GenreView, {
+            Genre: movies.find(function (m) {
+              return m.genre.name === match.params.name;
+            }),
+            onBackClick: function onBackClick() {
+              return history.goBack();
+            }
+          }));
+        }
+      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/profile",
+        render: function render(_ref3) {
+          var history = _ref3.history;
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+            md: 12
+          }, /*#__PURE__*/_react.default.createElement(_userView.Userview, {
+            user: user,
+            setUser: function setUser(user) {
+              return _this4.setUser(user);
+            },
+            movies: movies,
+            onLoggedOut: function onLoggedOut() {
+              return _this4.onLoggedOut();
+            },
+            onBackClick: function onBackClick() {
+              return history.goBack();
+            }
+          }));
+        }
+      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/movies/:movieId",
+        render: function render(_ref4) {
+          var match = _ref4.match;
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+            md: 8
+          }, /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
             movie: movies.find(function (m) {
               return m._id === match.params.movieId;
             }),
@@ -57881,136 +57822,23 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             }
           }));
         }
-      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/genres/:name",
-        render: function render(_ref2) {
-          var match = _ref2.match,
-              history = _ref2.history;
-          // get alll movies for a genre
-          // 1. get a list of all movies
-          // 2. determine the gennre for each movie
-          // 3. keep only those moviess whose gennre iss our target genre
-          var targetGenreMovies = [];
-          movies.forEach(function (movie) {
-            var movieGenreName = movie.Genre.Name;
-            var targetGenreName = match.params.name;
-            console.log('>', movieGenreName, targetGenreName);
-
-            if (movieGenreName === targetGenreName) {
-              // if this is the case, then we have found a movie for target genre
-              targetGenreMovies.push(movie);
-            }
-          });
-          console.log('targetGenreMovies', targetGenreMovies);
-          if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
-          if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
-            className: "main-view"
-          });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-            lg: 9
-          }, /*#__PURE__*/_react.default.createElement(NavBarView, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_genreView.GenreView, {
-            movieData: targetGenreMovies,
-            genre: movies.find(function (m) {
-              return m.Genre.Name === match.params.name;
-            }).Genre,
-            onBackClick: function onBackClick() {
-              return history.goBack();
-            }
-          }));
-        }
-      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/directors/:name",
-        render: function render(_ref3) {
-          var match = _ref3.match,
-              history = _ref3.history;
-          var targetDirectorMovies = [];
-          movies.forEach(function (movie) {
-            var movieDirectorName = movie.Director.Name;
-            var targetDirectorName = match.params.name;
-            console.log('>', movieDirectorName, targetDirectorName);
-
-            if (movieDirectorName === targetDirectorName) {
-              // if this is the case, then we have found a movie for target genre
-              targetDirectorMovies.push(movie);
-            }
-          });
-          console.log('targetDirectorMovies', targetDirectorMovies);
-          if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
-          if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
-            className: "main-view"
-          });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-            lg: 9
-          }, /*#__PURE__*/_react.default.createElement(NavBarView, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_directorView.DirectorView, {
-            movieData: targetDirectorMovies,
-            director: movies.find(function (m) {
-              return m.Director.Name === match.params.name;
-            }).Director,
-            onBackClick: function onBackClick() {
-              return history.goBack();
-            }
-          }));
-        }
-      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/users/:username",
-        render: function render(_ref4) {
-          var match = _ref4.match,
-              history = _ref4.history;
-          console.log('Gott Userrrrr');
-          if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
-          if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
-            className: "main-view"
-          });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-            lg: 9
-          }, /*#__PURE__*/_react.default.createElement(NavBarView, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(UserView, {
-            getUser: _this4.getUser,
-            onBackClick: function onBackClick() {
-              return history.goBack();
-            },
-            removeMovie: function removeMovie(_id) {
-              return _this4.onRemoveFavorite(_id);
-            }
-          }));
-        }
       }))));
     }
   }]);
 
   return MainView;
-}(_react.default.Component);
+}(_react.default.Component); // #7
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies,
-    user: state.user
+    movies: state.movies
   };
-};
+}; // #8
+
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies,
-  setUser: _actions.setUser
+  setMovies: _actions.setMovies
 })(MainView);
 
 exports.default = _default;

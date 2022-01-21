@@ -57731,6 +57731,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         selectedMovie: movie
       });
     }
+  }, {
+    key: "onRegistration",
+    value: function onRegistration(register) {
+      this.setState({
+        register: register
+      });
+    }
     /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
   }, {
@@ -57851,7 +57858,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/register",
         render: function render() {
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null));
+          return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null);
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         path: "/directors/:name",
